@@ -12,4 +12,16 @@ def shorten_link(url=url, token=TOKEN, link=link):
     response.raise_for_status()
     return (response.json()['link'])
 
-print('Битлинк', shorten_link())
+#обернуть в main
+try:
+    bitlink = shorten_link()
+    print('Битссылка', bitlink)
+except requests.exceptions.HTTPError:
+    print('Вы ввели неверную ссылку')
+
+
+
+
+
+
+
