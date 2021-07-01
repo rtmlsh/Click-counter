@@ -1,7 +1,10 @@
+import os
 import requests
 from dotenv import load_dotenv
+
 load_dotenv()
-TOKEN = '17c09e22ad155405159ca1977542fecf00231da7'
+
+TOKEN = os.getenv('TOKEN')
 link = input('Введите URL: ')
 
 def define_link(link=link, token = TOKEN):
@@ -42,6 +45,11 @@ def check_clicks_count():
         print('Кликов:', clicks_count)
     except requests.exceptions.HTTPError:
         print('Вы ввели неверную ссылку 2')
+
+
+
+
+
 
 # https://bit.ly/2GE4ZC3
 # https://yandex.ru/
