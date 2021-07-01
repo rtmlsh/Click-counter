@@ -1,19 +1,14 @@
 import requests
-from urllib.parse import urlparse
-
+from dotenv import load_dotenv
+load_dotenv()
 TOKEN = '17c09e22ad155405159ca1977542fecf00231da7'
-link = input('Введите URL для сокращения: ')
-# short_link = input('Введите битлинк: ')
+link = input('Введите URL: ')
 
-
-def define_link(link=link):
-    parsed = urlparse(link)
-    print(parsed)
-    if parsed.netloc == 'bit.ly':
-        print(parsed)
-        check_clicks_count()
-    else:
-        check_short_link()
+def define_link(link=link, token = TOKEN):
+    url = 'https://api-ssl.bitly.com/v4/bitlinks/'f'{link}'
+    header = {'Authorization': f'{token}'}
+    response = requests.get(url, headers=header)
+    check_clicks_count() if response else check_short_link()
 
 def shorten_link(token=TOKEN, link=link):
     url = 'https://api-ssl.bitly.com/v4/bitlinks'
