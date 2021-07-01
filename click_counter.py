@@ -1,9 +1,19 @@
 import requests
-
+from urllib.parse import urlparse
 
 TOKEN = '17c09e22ad155405159ca1977542fecf00231da7'
 link = input('Введите URL для сокращения: ')
-short_link = input('Введите битлинк: ')
+# short_link = input('Введите битлинк: ')
+
+
+def define_link(link=link):
+    parsed = urlparse(link)
+    print(parsed)
+    if parsed.netloc == 'bit.ly':
+        print(parsed)
+        check_clicks_count()
+    else:
+        check_short_link()
 
 def shorten_link(token=TOKEN, link=link):
     url = 'https://api-ssl.bitly.com/v4/bitlinks'
@@ -13,14 +23,15 @@ def shorten_link(token=TOKEN, link=link):
     response.raise_for_status()
     return (response.json()['link'])
 
-try:
-    bitlink = shorten_link()
-    print('Битссылка:', bitlink)
-except requests.exceptions.HTTPError:
-    print('Вы ввели неверную ссылку')
+def check_short_link():
+    try:
+        bitlink = shorten_link()
+        print('Битссылка:', bitlink)
+    except requests.exceptions.HTTPError:
+        print('Вы ввели неверную ссылку 1')
 
-def count_clicks(bitlink=short_link, token=TOKEN):
-    url = 'https://api-ssl.bitly.com/v4/bitlinks/'f'{bitlink}''/clicks/summary'
+def count_clicks(link=link, token=TOKEN):
+    url = 'https://api-ssl.bitly.com/v4/bitlinks/'f'{link}''/clicks/summary'
     headers = {'Authorization': 'Bearer 'f'{token}'}
     payload = {
         'unit': 'month',
@@ -30,16 +41,17 @@ def count_clicks(bitlink=short_link, token=TOKEN):
     response.raise_for_status()
     return response.json()['total_clicks']
 
-try:
-    clicks_count = count_clicks()
-    print('Кликов:', clicks_count)
-except requests.exceptions.HTTPError:
-    print('Вы ввели неверную ссылку')
+def check_clicks_count():
+    try:
+        clicks_count = count_clicks()
+        print('Кликов:', clicks_count)
+    except requests.exceptions.HTTPError:
+        print('Вы ввели неверную ссылку 2')
 
 # https://bit.ly/2GE4ZC3
 # https://yandex.ru/
 
-
+define_link()
 
 
 
