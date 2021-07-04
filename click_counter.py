@@ -21,7 +21,7 @@ def shorten_link(link, token):
     response = requests.post(url, headers=header, json=payload)
     response.raise_for_status()
     bitlink = response.json()['link']
-    print('Кликов', bitlink)
+    print('Битссылка', bitlink)
 
 
 def count_clicks(link, token):
