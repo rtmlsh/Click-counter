@@ -37,7 +37,7 @@ def count_clicks(link, token):
     print('Кликов:', clicks_count)
 
 
-def check_link_data(checked_link):
+def check_link_data():
     try:
         remake_checked_link(checked_link)
     except requests.exceptions.HTTPError:
@@ -49,4 +49,4 @@ if __name__ == '__main__':
     token = os.getenv('BITLY_TOKEN')
     link = input('Введите URL: ')
     checked_link = check_link(link, token)
-    check_link_data(checked_link)
+    check_link_data()
