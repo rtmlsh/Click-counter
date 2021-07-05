@@ -5,23 +5,23 @@ from dotenv import load_dotenv
 
 def check_link(link, token):
     url = f'https://api-ssl.bitly.com/v4/bitlinks/{link}'
-    header = {'Authorization': f'{token}'}
+    header = {'Authorization': token}
     response = requests.get(url, headers=header)
     return response.ok
 
 
 def remake_checked_link(checked_link):
-    count_clicks(link, token) if checked_link else shorten_link(link, token)
+    print('Кликов', count_clicks(link, token)) if checked_link else print('Битссылка', shorten_link(link, token))
 
 
 def shorten_link(link, token):
     url = 'https://api-ssl.bitly.com/v4/bitlinks'
-    header = {'Authorization': f'{token}'}
-    payload = {'long_url': f'{link}'}
+    header = {'Authorization': token}
+    payload = {'long_url': link}
     response = requests.post(url, headers=header, json=payload)
     response.raise_for_status()
-    bitlink = response.json()['link']
-    print('Битссылка', bitlink)
+    return response.json()['link']
+
 
 
 def count_clicks(link, token):
@@ -33,8 +33,8 @@ def count_clicks(link, token):
     }
     response = requests.get(url, headers=headers, params=payload)
     response.raise_for_status()
-    clicks_count = response.json()['total_clicks']
-    print('Кликов:', clicks_count)
+    return response.json()['total_clicks']
+
 
 
 def check_link_data():
