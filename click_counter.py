@@ -21,9 +21,9 @@ def check_server_answer(checked_link, token):
 
 def remake_checked_link(server_response):
     if server_response:
-        print('Кликов', count_clicks(checked_link, token))
+        print('Кликов:', count_clicks(checked_link, token))
     else:
-        print('Битссылка', shorten_link(checked_link, token))
+        print('Битссылка:', shorten_link(checked_link, token))
 
 
 def shorten_link(checked_link, token):
