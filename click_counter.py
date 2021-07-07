@@ -4,13 +4,10 @@ from urllib.parse import urlparse
 from dotenv import load_dotenv
 
 
-def remake_http_url(link, token):
+def remake_http_url(link):
     parted_url = urlparse(link)
     checking_link = f'{parted_url.netloc}{parted_url.path}'
-    url = f'https://api-ssl.bitly.com/v4/bitlinks/{checking_link}'
-    header = {'Authorization': token}
-    response = requests.get(url, headers=header)
-    return checking_link if response.ok else link
+    return checking_link
 
 
 def check_bitlink(checked_link, token):
@@ -20,10 +17,10 @@ def check_bitlink(checked_link, token):
     return response.ok
 
 
-def shorten_link(checked_link, token):
+def shorten_link(link, token):
     url = 'https://api-ssl.bitly.com/v4/bitlinks'
     header = {'Authorization': token}
-    payload = {'long_url': checked_link}
+    payload = {'long_url': link}
     response = requests.post(url, headers=header, json=payload)
     response.raise_for_status()
     return response.json()['link']
@@ -45,12 +42,12 @@ if __name__ == '__main__':
     load_dotenv()
     token = os.getenv('BITLY_TOKEN')
     link = input('Введите URL: ')
-    checked_link = remake_http_url(link, token)
+    checked_link = remake_http_url(link)
     server_response = check_bitlink(checked_link, token)
     try:
         if server_response:
             print('Кликов:', count_clicks(checked_link, token))
         else:
-            print('Битссылка:', shorten_link(checked_link, token))
+            print('Битссылка:', shorten_link(link, token))
     except requests.exceptions.HTTPError:
         print('Вы ввели неверную ссылку')
