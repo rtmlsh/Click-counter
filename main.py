@@ -47,11 +47,11 @@ def count_clicks(cropped_link, token):
 
 if __name__ == '__main__':
     parser = create_parser()
-    linkspace = parser.parse_args()
+    args = parser.parse_args()
     load_dotenv()
     token = os.getenv('BITLY_TOKEN')
-    if linkspace.link:
-        link = linkspace.link
+    if args.link:
+        link = args.link
     else:
         link = input('Введите URL: ')
     cropped_link = crop_url(link)
