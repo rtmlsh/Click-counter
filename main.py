@@ -50,10 +50,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     load_dotenv()
     token = os.getenv('BITLY_TOKEN')
-    if args.link:
-        link = args.link
-    else:
-        link = input('Введите URL: ')
+    link = args.link
     cropped_link = crop_url(link)
     server_response = check_bitlink(cropped_link, token)
     try:
