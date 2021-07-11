@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 
 def create_parser():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description='Передайте ссылку или битлинк аргументом при запуске скрипта')
     parser.add_argument('link', nargs='?')
     return parser
 
