@@ -5,7 +5,7 @@ from urllib.parse import urlparse
 from dotenv import load_dotenv
 
 
-def createParser():
+def create_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument('link', nargs='?')
     return parser
@@ -46,7 +46,7 @@ def count_clicks(cropped_link, token):
 
 
 if __name__ == '__main__':
-    parser = createParser()
+    parser = create_parser()
     linkspace = parser.parse_args()
     load_dotenv()
     token = os.getenv('BITLY_TOKEN')
