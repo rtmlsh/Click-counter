@@ -6,8 +6,8 @@ from dotenv import load_dotenv
 
 
 def create_parser():
-    parser = argparse.ArgumentParser(description='''Скрипт позволяет получить битлинк из
-    ссылки и посчитать количество кликов по ней''')
+    parser = argparse.ArgumentParser(description='''Скрипт позволяет получить битлинк 
+    из ссылки и посчитать количество кликов по ней''')
     parser.add_argument('link', help='''Передайте битлинк или ссылку
     в качестве аргумента при запуске скрипта''')
     return parser
